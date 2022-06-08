@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate=self
         tableView.dataSource=self
+        tableView.register(UINib(nibName: "MessageCell", bundle: .main), forCellReuseIdentifier: "ReusableCell")
         textField.delegate=self
         socketHelper.delegate=self
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)

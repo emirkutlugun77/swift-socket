@@ -19,8 +19,8 @@ extension ViewController:SocketDelegate{
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(message)
         let json = String(data: jsonData, encoding: .utf8)
-        print(json)
-        socketHelper.socket.emit(event, json as! SocketData, completion: {
+       
+        socketHelper.socket.emit(event, json!, completion: {
            } )
        
            textField.text=""

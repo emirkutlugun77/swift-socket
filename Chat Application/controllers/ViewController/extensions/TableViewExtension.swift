@@ -13,26 +13,32 @@ extension ViewController:UITableViewDataSource{
        return messages.count
    }
    
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       print("FAPKDFFKAFJDADA")
-           let cell = tableView.dequeueReusableCell(withIdentifier: "messages",for: indexPath)
-       cell.textLabel?.text = messages[indexPath.row].username
-       cell.largeContentTitle? = messages[indexPath.row].messageText
-       
-       cell.layer.cornerRadius = 50
-       let colorSwitch = user?.username == messages[indexPath.row].username
-       
-       if colorSwitch{
-          
-           cell.backgroundColor = .systemBlue
-       }
-       else{
-           
-           cell.backgroundColor = .systemGray6
-       }
-      			
-           return cell
-   }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messages[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! MessageCell
+        cell.label.text = message.messageText
+        
+        //This is a message from the current user.
+        if message.username == user?.username {
+            cell.leftImageView.isHidden = true
+            cell.rightImageView.isHidden = false
+            cell.messageBubble.backgroundColor = UIColor.systemTeal
+            cell.label.textColor = UIColor.white
+        }
+        //This is a message from another sender.
+        else {
+            cell.leftImageView.isHidden = false
+            cell.rightImageView.isHidden = true
+            cell.messageBubble.backgroundColor = UIColor.systemGray6
+            cell.label.textColor = UIColor.white
+        }
+        
+      
+      
+        return cell
+    }
    
    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
        return CGFloat(15.0)
@@ -50,7 +56,7 @@ extension ViewController:UITableViewDataSource{
 extension ViewController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 65
     }
 }
 
